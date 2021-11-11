@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="design.css">
+</head>
 <body>
 
 <?php
@@ -31,7 +34,7 @@ if (isset($_GET["console"]) and isset($_GET["type"]) and isset($_GET["type"])){
 	if($result){
 		while($row = mysqli_fetch_array($result)){
 			$name = $row;
-			echo "Name: ".$name."<br/>";
+			#echo "Name: ".$name."<br/>";
 
     }
 		}
@@ -55,6 +58,19 @@ else{
 ?>
 
 <p>The following co-op game has been selected. You can click resubmit at the bottom to get another choice.</p>
-<h1><?php $game ?></h1>
+<h1><?php echo $game ?></h1>
+<br/>
+<?php
+$myfile = fopen("images.txt", "w");
+$url = "\n".$website;
+fwrite($myfile,$url);
+fclose($myfile);
+foreach(file("images.txt") as $line){
+}
+$line = $image_title."jpg"
+?>
+<div>
+<img src = <?php echo "images/".$line ?>>
+</div>
 </body>
 </html> 
