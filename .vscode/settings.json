@@ -1,0 +1,30 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "classmysql.engr.oregonstate.edu",
+            "port": 3306,
+            "driver": "MariaDB",
+            "name": "mariadb",
+            "database": "cs340_singmanb",
+            "username": "cs340_singmanb",
+            "password": "2382"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "manbirsingh.ca",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "games",
+            "database": "games_for_game_hoard",
+            "username": "manzaib",
+            "password": "IWillMakeAScript436"
+        }
+    ]
+}
