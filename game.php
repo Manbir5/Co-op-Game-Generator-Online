@@ -27,8 +27,6 @@ if (isset($_GET["console"]) and isset($_GET["type"]) and isset($_GET["type"])){
   $query = "SELECT gc.game_title FROM (SELECT * FROM Games INNER JOIN Games_Consoles ON Games.id = Games_Consoles.id INNER JOIN Consoles ON Consoles.cid = Games_Consoles.cid) as gc";
 	
 	$result = mysqli_query($conn,$query);
-
-  printf("Select returned %d rows.\n", $result->num_rows);
 	
 	if($result){
 		while($row = mysqli_fetch_array($result)){
@@ -39,9 +37,24 @@ if (isset($_GET["console"]) and isset($_GET["type"]) and isset($_GET["type"])){
 		}
 	}
 else{
-  echo "Please Select At Least One Of Each Criteria";
+	$invalid = "invalid";
 } 
+
+$number = rand(1,2);
+
+if ($number == 1)
+{
+	$game = "Borderlands 2";
+	$website = "https://en.wikipedia.org/wiki/Borderlands_2";
+}
+else{
+	$game = "A Way Out";
+	$website = "https://en.wikipedia.org/wiki/A_Way_Out_(video_game)";
+}
+
 ?>
 
+<p>The following co-op game has been selected. You can click resubmit at the bottom to get another choice.</p>
+<h1><?php $game ?></h1>
 </body>
 </html> 
