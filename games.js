@@ -79,7 +79,6 @@ module.exports = function(){
         should have the name of the resized image file that was transformed by this microservice. This program slices out the unnecessary parts of the output and attaches it to
         an object as one of its properties. This object is then set as one of the properties for context. Lastly, it does a function call to complete .*/
         var output = readLastLinesEnc("utf8")("public/images/image_transformer_pipe.txt",1);
-        console.log(output)
         output = output.slice(7);
         output = output.slice(0,-1);
         let obj = new Object();
