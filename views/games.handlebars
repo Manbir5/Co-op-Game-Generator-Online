@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<link rel="stylesheet" href="/static/css/design.css">
+<title>Results</title>
+</head>
+
+<body>
+
+<h1>Your Random Co-Op Game</h1>
+
+<p>The following co-op game has been selected. You can click resubmit at the bottom to get another choice.</p>
+
+<br />
+<br />
+<br />
+
+{{#each red}} 
+<h2 id="center">{{game_title}}</h2>
+<h2 id="center">{{output}}</h2>
+{{/each}} 
+
+<br />
+<br />
+
+
+<div id ="center">
+<img id = "center" src = "static/images/{{output}}">
+</div>
+
+<br />
+<br />
+
+<form id ="return" name ="return" action = "/" method="GET">
+
+<div class = "submit">
+<input type="submit" class ="button" value="Retry">
+</div>
+
+</form>
+
+</body>
+</html>
+
