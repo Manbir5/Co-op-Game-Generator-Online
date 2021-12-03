@@ -1,0 +1,15 @@
+
+IN | 270,380, "https://en.wikipedia.org/wiki/Helldivers.png"
+OUT | ERROR RESIZING IMAGE: https://en.wikipedia.org/wiki/Helldivers.png
+IN | 270,380, "It_Takes_Two_cover_art.png"
+OUT | "resized_It_Takes_Two_cover_art.png"
+IN | 270,380, "Borderlands_2_cover_art.png"
+OUT | "resized_Borderlands_2_cover_art.png"
+IN | 270,380, "A_Way_Out_Logo.png"
+OUT | "resized_A_Way_Out_Logo.png"
+IN | 270,380, "Borderlands_2_cover_art.png"
+OUT | "resized_Borderlands_2_cover_art.png"
+IN | 270,380, "Lovers_in_a_dangerous_Spacetime_logo.png"
+OUT | "resized_Lovers_in_a_dangerous_Spacetime_logo.png"
+IN | 270,380, "It_Takes_Two_cover_art.png"
+OUT | "resized_It_Takes_Two_cover_art.png"

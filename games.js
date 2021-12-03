@@ -121,7 +121,7 @@ module.exports = function(){
          the definition for the complete function and uses that to render the games handlebar.*/
         check = validateInput(req);
         if (check == 0){
-            res.redirect('/');
+            res.render('error');
         }
         else{
         var callbackCount = 0;
