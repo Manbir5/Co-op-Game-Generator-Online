@@ -5,7 +5,7 @@ body{
 
 /* For the select boxes on the index page*/
 
-#form input[type="checkbox"]{
+#form input[type="radio"]{
       display:none;
   }
 
@@ -24,7 +24,7 @@ body{
 
   }
 
-#form input[type ="checkbox"]:checked + span{
+#form input[type ="radio"]:checked + span{
       background-color:lightseagreen;
       color : black
   }
@@ -63,6 +63,19 @@ h2{
     font-size: 220%;
     margin-top: 5px;
 }
+
+a:link, a:visited {
+    background-color: #5a58db;
+    color: white;
+    padding: 14px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+  
+  a:hover, a:active {
+    background-color: rgb(157, 177, 245);
+  }
 
 .submit{
     margin: auto;

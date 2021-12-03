@@ -93,8 +93,8 @@ module.exports = function(){
         /* This function takes a req, res, mysql, context variable for its parameters. It also takes a complete function that is defined in another function. This function
         creates a mysql statement and runs that query with the database associated with mysql. It gets one row as its result. It then makes function calls to the functions
         associated with the microservices to download the corresponding image and transform it. It uses setTimeout to deal with a delay in a microservice.*/
-        var sql = "SELECT game_title, website FROM ((SELECT game_title, website, id FROM ((SELECT game_title, website, id FROM Games INNER JOIN Games_Consoles ON Games_Consoles.con_id = Games.id INNER JOIN Consoles ON Consoles.cid = Games_Consoles.con_cid WHERE Consoles.cid = (?)) as console_inquiry) INNER JOIN Games_Genres ON console_inquiry.id = Games_Genres.conn_id INNER JOIN Genres ON Genres.gid = Games_Genres.conn_gid WHERE Genres.gid = (?)) as genre_inquiry) INNER JOIN Games_Types ON Games_Types.conne_id = genre_inquiry.id INNER JOIN Types ON Types.tid = Games_Types.conne_tid WHERE Types.tid = (?) ORDER BY RAND() LIMIT 1";
-       var inserts = [(req.body.console)[0],(req.body.genre)[0], (req.body.type)[0]];
+        var sql = "SELECT link_for_info, game_title, website FROM ((SELECT link_for_info, game_title, website, id FROM ((SELECT link_for_info, game_title, website, id FROM Games INNER JOIN Games_Consoles ON Games_Consoles.con_id = Games.id INNER JOIN Consoles ON Consoles.cid = Games_Consoles.con_cid WHERE Consoles.cid = (?)) as console_inquiry) INNER JOIN Games_Genres ON console_inquiry.id = Games_Genres.conn_id INNER JOIN Genres ON Genres.gid = Games_Genres.conn_gid WHERE Genres.gid = (?)) as genre_inquiry) INNER JOIN Games_Types ON Games_Types.conne_id = genre_inquiry.id INNER JOIN Types ON Types.tid = Games_Types.conne_tid WHERE Types.tid = (?) ORDER BY RAND() LIMIT 1";
+       var inserts = [(req.body.console),(req.body.genre), (req.body.type)];
        mysql.pool.query(sql, inserts, function(error,rows, fields){
             if(error){
                 res.write(JSON.stringify(error));

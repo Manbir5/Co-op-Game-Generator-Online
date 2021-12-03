@@ -12,11 +12,11 @@
 
 <br />
 <br />
-<br />
 
 {{#each red}} 
+
 <h2 id="center">{{game_title}}</h2>
-<h2 id="center">{{output}}</h2>
+
 {{/each}} 
 
 <br />
@@ -28,10 +28,26 @@
 </div>
 
 <br />
+
+<div id ="center">
+{{#each red}}
+<a href = '{{link_for_info}}' target="_blank">Click here for more info</a>
+{{/each}} 
+</div>
+
+<br />
 <br />
 
 <form id ="return" name ="return" action = "/" method="GET">
 
+<div class = "submit">
+<input type="submit" class ="button" value="Change Search">
+</div>
+
+</form>
+
+<form id ="retry" name ="retry" action = "/games" method="POST">
+<input type="hidden" name="console" value="Hi">
 <div class = "submit">
 <input type="submit" class ="button" value="Retry">
 </div>
