@@ -38,22 +38,29 @@
 <br />
 <br />
 
+<div class = "submit">
+
 <form id ="return" name ="return" action = "/" method="GET">
 
-<div class = "submit">
 <input type="submit" class ="button" value="Change Search">
-</div>
 
 </form>
+
+<div class ="seperator"></div>
 
 <form id ="retry" name ="retry" action = "/games" method="POST">
-<input type="hidden" name="console" value="Hi">
-<div class = "submit">
-<input type="submit" class ="button" value="Retry">
-</div>
+
+<input type="hidden" name="console" value={{console_name}}>
+<input type="hidden" name="type" value={{type_name}}>
+<input type="hidden" name="genre" value={{genre_name}}>
+
+<input type="submit" class ="button" id = "retryButton" value="Retry"  onclick="transformButtonForRetry()">
 
 </form>
 
+</div>
+
 </body>
+
 </html>
 

@@ -3,45 +3,6 @@ body{
     background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(229,243,244,1) 85%, rgba(146,232,250,1) 100%);  
 }
 
-/* For the select boxes on the index page*/
-
-#form input[type="radio"]{
-      display:none;
-  }
-
-#form span{
-      display: inline-block;
-      font-size: 1.2em;
-      text-transform: uppercase;
-      padding: 10px;
-      border :  black solid 2px;
-      border-radius: 5px;
-      color: black;
-      margin-right: 40px;
-      margin-bottom: 20px;
-      text-align: center;
-      width: 170px;
-
-  }
-
-#form input[type ="radio"]:checked + span{
-      background-color:lightseagreen;
-      color : black
-  }
-
-.button {
-    background-color: #da2828; 
-    border: black solid 2px;
-    color: white;
-    display: inline-block;
-    padding: 15px 30px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 15px;
-    text-align: center;
-  }
-
-
 fieldset {
    border:0 none;
 }
@@ -64,6 +25,10 @@ h2{
     margin-top: 5px;
 }
 
+form {
+    display: inline; 
+   }
+
 a:link, a:visited {
     background-color: #5a58db;
     color: white;
@@ -85,3 +50,48 @@ a:link, a:visited {
 #center {
     text-align: center;
 }
+
+.seperator{
+    width:50px;
+    display:inline-block;
+    height:auto;
+}
+
+/* For the select boxes on the index page*/
+
+#form input[type="radio"]{
+    display:none;
+}
+
+#form span{
+    display: inline-block;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    padding: 10px;
+    border :  black solid 2px;
+    border-radius: 5px;
+    color: black;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 170px;
+
+}
+
+#form input[type ="radio"]:checked + span{
+    background-color:lightseagreen;
+    color : black
+}
+
+.button {
+  background-color: #da2828; 
+  border: black solid 2px;
+  color: white;
+  display: inline-block;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
+  text-align: center;
+}
+

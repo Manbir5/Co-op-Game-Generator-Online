@@ -12,6 +12,7 @@ module.exports = function(){
 
     router.get('/', function(req, res){
     context = {};
+    context.jsscripts = ["transformButton.js"];
     res.render('index', context);
         });
 

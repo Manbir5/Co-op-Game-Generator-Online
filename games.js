@@ -13,8 +13,8 @@ module.exports = function(){
 
 
     function validateInput(req){
-        /* This function does input validation. In ensures that at least one box was selected for each search criteria. It returns 0 if a search criteria was left empty. It takes
-        the req as its only parameter.*/
+        /* This function does input validation. In ensures that at least one box was selected for each search criteria. It returns 0 if a search 
+        criteria was left empty. It takes the req as its only parameter.*/
         if (req.body.console == null){
             return 0;
         } else if (req.body.type == null) { 
@@ -29,15 +29,15 @@ module.exports = function(){
             };
 
 
-    function error_page(res){
-          /* This function renders an error page when called. It takes a res variable as its parameter and uses express and handlebars to generate the page. This is called when
-          no result has been found.*/
+    function errorPage(res){
+          /* This function renders an error page when called. It takes a res variable as its parameter and uses express and handlebars to 
+          generate the page. This is called when no result has been found.*/
         context = {}
-        res.render('error_page', context);
+        res.render('errorPage', context);
     }
 
 
-    function write_to_image_downloader(website_url){
+    function writeToImageDownloader(website_url){
         /* This function takes a url as its parameter. It writes the url in the last line of an images.txt file that is associated with the image_downloader microservice.*/
         fs.appendFile("public/images.txt", "\n" + (website_url), (err) => {
             if (err){
@@ -50,32 +50,31 @@ module.exports = function(){
                     };
 
 
-    function read_last_line_of_image_downloader(context, complete){
-        /* This function takes a variable and a function for its parameters. It reads the last line of an images.txt file that is associated with 
-        the image_downloader microservice. This last line should have the name of latest image file downloaded by this microservice. This program adds the .png extension
-         to the name and does a function call for the next step. */
+    function readLastLineOfImageDownloader(context, complete){
+        /*  This function reads the last line of an images.txt file that is associated with the image_downloader microservice. This last line 
+        should have the name of latest image file downloaded by this microservice. This program adds the .png extension to the name and does
+         a function call for the next step. */
         var last_line = readLastLinesEnc("utf8")("public/images.txt",1);
         last_line_with_ext = last_line + ".png";
-        write_to_image_transformer(last_line_with_ext,context, complete);
+        writeToImageTransformer(last_line_with_ext,context, complete);
     };
 
 
-    function write_to_image_transformer(lines,context, complete){
-        /* This function takes a file name in a string format, a variable, and a function as its parameters. It writes the measurements 
-        and file name in a single line at the end of a image_transformer .txt file. It does a function call for the next step.*/
+    function writeToImageTransformer(lines,context, complete){
+        /* This function writes the measurements and file name in a single line at the end of a image_transformer .txt file. It does a function call for the next step.*/
         fs.appendFile("public/images/image_transformer_pipe.txt", "\n" + 'IN | 270,380, ' + '"' + lines + '"', (err) => {
             if (err){
                 console.log(err);
                 res.write(JSON.stringify(error));
                 res.end(); 
             }
-            setTimeout(read_last_line_of_image_downloader_and_complete, 1000, context, complete);  
+            setTimeout(readLastLineOfImageDownloaderAndComplete, 1000, context, complete);  
     })
         };
 
 
-    function read_last_line_of_image_downloader_and_complete(context, complete){
-        /* This function takes a variable and a function as its parameters. It reads the last line of an images_transformer_pipe.txt file that is associated with the image_transformer microservice. This last line
+    function readLastLineOfImageDownloaderAndComplete(context, complete){
+        /* This function reads the last line of an images_transformer_pipe.txt file that is associated with the image_transformer microservice. This last line
         should have the name of the resized image file that was transformed by this microservice. This program slices out the unnecessary parts of the output and attaches it to
         an object as one of its properties. This object is then set as one of the properties for context. Lastly, it does a function call to complete .*/
         var output = readLastLinesEnc("utf8")("public/images/image_transformer_pipe.txt",1);
@@ -88,12 +87,25 @@ module.exports = function(){
         complete();
     }
 
+    function valuesForRetry(req, context){
+        /* This function assigns the past request elements to different properties of context. This is to store the values of the 
+        request in case the user wants to search again.*/
+        context.console_name = req.body.console;
+        context.genre_name = req.body.genre;
+        context.type_name = req.body.type;
+    }
+
     
     function getGameAndDownloadImage(req, res, mysql, context, complete){
-        /* This function takes a req, res, mysql, context variable for its parameters. It also takes a complete function that is defined in another function. This function
-        creates a mysql statement and runs that query with the database associated with mysql. It gets one row as its result. It then makes function calls to the functions
-        associated with the microservices to download the corresponding image and transform it. It uses setTimeout to deal with a delay in a microservice.*/
-        var sql = "SELECT link_for_info, game_title, website FROM ((SELECT link_for_info, game_title, website, id FROM ((SELECT link_for_info, game_title, website, id FROM Games INNER JOIN Games_Consoles ON Games_Consoles.con_id = Games.id INNER JOIN Consoles ON Consoles.cid = Games_Consoles.con_cid WHERE Consoles.cid = (?)) as console_inquiry) INNER JOIN Games_Genres ON console_inquiry.id = Games_Genres.conn_id INNER JOIN Genres ON Genres.gid = Games_Genres.conn_gid WHERE Genres.gid = (?)) as genre_inquiry) INNER JOIN Games_Types ON Games_Types.conne_id = genre_inquiry.id INNER JOIN Types ON Types.tid = Games_Types.conne_tid WHERE Types.tid = (?) ORDER BY RAND() LIMIT 1";
+        /* This function creates a mysql statement and runs that query with the database associated with mysql. It gets one row as its result. It then makes 
+        function calls to the functions associated with the microservices to download the corresponding image and transform it. It uses setTimeout 
+        to deal with a delay in a microservice.*/
+        var sql = "SELECT link_for_info, game_title, website FROM ((SELECT game_title, website, id, link_for_info " +
+        "FROM ((SELECT link_for_info, game_title, website, id FROM Games INNER JOIN Games_Consoles ON Games_Consoles.con_id " +
+        "= Games.id INNER JOIN Consoles ON Consoles.cid = Games_Consoles.con_cid WHERE Consoles.cid = (?)) as console_inquiry) INNER JOIN Games_Genres ON " + 
+        "console_inquiry.id = Games_Genres.conn_id INNER JOIN Genres ON Genres.gid = Games_Genres.conn_gid WHERE Genres.gid = (?)) as genre_inquiry) " + 
+        "INNER JOIN Games_Types ON Games_Types.conne_id = genre_inquiry.id INNER JOIN Types ON Types.tid = " +
+        "Games_Types.conne_tid WHERE Types.tid = (?) ORDER BY RAND() LIMIT 1";
        var inserts = [(req.body.console),(req.body.genre), (req.body.type)];
        mysql.pool.query(sql, inserts, function(error,rows, fields){
             if(error){
@@ -102,13 +114,14 @@ module.exports = function(){
             }
             if (rows.length == 0)
             {
-                error_page(res);
+                errorPage(res);
             }
             else{
+            valuesForRetry(req, context);
             context.red = rows;;
             let website_url = rows[0].website;
-            write_to_image_downloader(website_url);
-            setTimeout(read_last_line_of_image_downloader, 2000, context, complete); // Need this due to a delay in a microservice.    
+            writeToImageDownloader(website_url);
+            setTimeout(readLastLineOfImageDownloader, 2000, context, complete); // Need this due to a delay in a microservice.    
             };          
                     });
                 
@@ -117,8 +130,8 @@ module.exports = function(){
            
 
     router.post('/', function(req, res){
-         /* This function is called whenver a post request is made to /games. It makes function calls to validate the input and to get the requried game and image. It has 
-         the definition for the complete function and uses that to render the games handlebar.*/
+         /* This function is called whenver a post request is made to /games. It makes function calls to validate the input and to get 
+         the requried game and image. It has the definition for the complete function and uses that to render the games handlebar.*/
         check = validateInput(req);
         if (check == 0){
             res.render('error');
@@ -126,6 +139,7 @@ module.exports = function(){
         else{
         var callbackCount = 0;
         var context = {};
+        context.jsscripts = ["transformButtonForRetry.js"];
         var mysql = req.app.get('mysql');
         getGameAndDownloadImage(req, res, mysql, context, complete);
          function complete(){
