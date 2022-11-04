@@ -1,5 +1,7 @@
 # Co-op-Game-Generator-Online
 
+A trial version can be seen on manbirsingh.ca
+
 This is the code for a website that generates a random co-op game after the user has selected their criteria.
 
 This is a web application that allows a user to select criteria on the home page. They can select the console type, the co-op type, and the genre they are looking for. After pressing submit, the web application will provide a game title that matches this criteria and a picture of the game.
